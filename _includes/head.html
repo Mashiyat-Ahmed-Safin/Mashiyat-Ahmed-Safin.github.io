@@ -1,0 +1,74 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- seo -%}
+  <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  {%- feed_meta -%}
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- include google-analytics.html -%}
+  {%- endif -%}
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch (e) {}
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", saved || (prefersDark ? "dark" : "light"));
+    })();
+  </script>
+  <style>
+    html[data-theme="dark"] body { background: #121417; color: #e4e6eb; }
+    html[data-theme="dark"] .site-title,
+    html[data-theme="dark"] .site-title:visited,
+    html[data-theme="dark"] .page-link,
+    html[data-theme="dark"] h1, html[data-theme="dark"] h2,
+    html[data-theme="dark"] h3, html[data-theme="dark"] h4 { color: #e4e6eb; }
+    html[data-theme="dark"] a, html[data-theme="dark"] a:visited { color: #79b8ff; }
+    html[data-theme="dark"] .site-header { border-top-color: #2b3036; border-bottom-color: #2b3036; }
+    html[data-theme="dark"] .site-footer { border-top-color: #2b3036; color: #a0a6ad; }
+    html[data-theme="dark"] .post-meta { color: #a0a6ad; }
+    html[data-theme="dark"] .site-nav { background-color: #121417; border-color: #2b3036; }
+    html[data-theme="dark"] .menu-icon svg path { fill: #e4e6eb; }
+    html[data-theme="dark"] pre, html[data-theme="dark"] code,
+    html[data-theme="dark"] .highlight, html[data-theme="dark"] .highlight .w {
+      background: #1c2025; border-color: #2b3036; color: #e4e6eb;
+    }
+    html[data-theme="dark"] .highlight * { color: inherit !important; background: transparent !important; }
+    html[data-theme="dark"] blockquote { color: #a0a6ad; border-left-color: #2b3036; }
+    html[data-theme="dark"] table th, html[data-theme="dark"] table td { border-color: #2b3036; }
+    html[data-theme="dark"] table tr:nth-child(even) { background-color: #1c2025; }
+    html[data-theme="dark"] table th { background-color: #1c2025; }
+    html[data-theme="dark"] hr { border-color: #2b3036; }
+
+    .theme-toggle {
+      position: fixed; right: 16px; bottom: 16px; z-index: 10;
+      font: inherit; font-size: 14px; cursor: pointer;
+      padding: 8px 14px; border-radius: 999px;
+      border: 1px solid #e8e8e8; background: #ffffff; color: #111111;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+    html[data-theme="dark"] .theme-toggle { border-color: #2b3036; background: #1c2025; color: #e4e6eb; }
+    .theme-toggle:focus-visible { outline: 2px solid #2a7ae2; outline-offset: 2px; }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var root = document.documentElement;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "theme-toggle";
+      function render() {
+        var dark = root.getAttribute("data-theme") === "dark";
+        btn.textContent = dark ? "☀ Light" : "☾ Dark";
+        btn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+      }
+      btn.addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) {}
+        render();
+      });
+      render();
+      document.body.appendChild(btn);
+    });
+  </script>
+</head>
